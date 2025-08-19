@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.05);
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  font-size: 28px;
+  color: #4e73df;
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* Зеркалим правый блок */
+.right {
+  flex-direction: row-reverse; /* иконка справа, текст слева */
+}
+
+.right .textGroup {
+  text-align: right; /* текст выравниваем вправо */
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.role {
+  font-size: 13px;
+  color: #888;
+}

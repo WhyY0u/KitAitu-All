@@ -1,0 +1,13 @@
+.container_counts {
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* всегда 2 колонки */
+  gap: 16px;
+  justify-content: center; /* центрируем сетку */
+  align-items: start;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.container_counts > * {
+  width: 120px; /* или сколько нужно */
+}
