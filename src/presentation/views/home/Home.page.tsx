@@ -5,11 +5,28 @@ import styles from './styles/Style.module.css';
 import BoxCreateTicket from './components/boxCreateTicket/BoxCreateTicket';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import TicketListContainer from './components/ticketListContainer/TicketListContainer';
+import { generateRandomTickets } from '@/generator/TicketGenerator';
+import { UserApiRepository } from '@/data/repositories/user/UserRepositoriesApi';
+import type { User } from '@/domain/entities/user/User';
 
-const HomePage = () => {
+interface HomePageUserProps {
+    user: User;
+}
+const HomePageOwner = ({ user }: HomePageUserProps) => {
+    return <>
+
+    </>
+}
+
+const HomePageAdministatorAndUser = ({ user }: HomePageUserProps) => {
     const counts = { new: 5, inProgress: 12, closed: 7, all: 24 };
     const [showModal, setShowModal] = useState(false);
-    const [showCreate, setShowCreate] = useState(false); // ⬅️ контролим появление
+    const [showCreate, setShowCreate] = useState(false);
+    const [showTicketList, setShowTicketList] = useState(false);
+    const randomTickets = generateRandomTickets(5);
+
+
     const fakeStatusCounts: StatusCounts = {
         Новые: 5,
         "В процессе": 12,
@@ -35,7 +52,7 @@ const HomePage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                onAnimationComplete={() => setShowCreate(true)} 
+                onAnimationComplete={() => setShowCreate(true)}
             >
                 <StatusContainer counts={counts} />
             </motion.div>
@@ -45,15 +62,18 @@ const HomePage = () => {
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
+                    onAnimationComplete={() => setShowTicketList(true)}
                 >
                     <CreateContainerTicket
+                        user={user!}
                         onClick={() => setShowModal(!showModal)}
                         counts={fakeStatusCounts}
+
                     />
                 </motion.div>
             )}
 
-            
+            {showTicketList && (<TicketListContainer tickets={randomTickets} />)}
 
             {showModal && (
                 <BoxCreateTicket onClose={() => setShowModal(false)} />
@@ -61,5 +81,16 @@ const HomePage = () => {
         </div>
     );
 };
+
+
+const HomePage = () => {
+    const [user, setUser] = useState<User | null>(null);
+    const userRepo = new UserApiRepository();
+
+    useEffect(() => {
+        userRepo.getMe().then(response => setUser(response));
+    }, [])
+    return user?.role == 'Владелец' ? <HomePageOwner user={user!} /> : <HomePageAdministatorAndUser user={user!} />;
+}
 
 export default HomePage;

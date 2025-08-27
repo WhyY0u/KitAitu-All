@@ -1,14 +1,16 @@
 import { StatusName, type StatusCounts } from '@/domain/constants/status';
 import styles from './style/Style.module.css'
 import { useState } from 'react';
+import { UserRoles, type User } from '@/domain/entities/user/User';
 
 interface CreateContainerTicketProps {
     counts: StatusCounts;
     onFilterChange?: (status: string) => void;
     onClick?: () => void;
+    user: User
 }
 
-const CreateContainerTicket = ({ counts, onFilterChange, onClick }: CreateContainerTicketProps) => {
+const CreateContainerTicket = ({ counts, onFilterChange, onClick, user }: CreateContainerTicketProps) => {
     const filters = [
         { key: StatusName.AllCount, label: 'Все', count: counts.Все },
         { key: StatusName.NewCount, label: 'Новые', count: counts.Новые },
@@ -25,8 +27,15 @@ const CreateContainerTicket = ({ counts, onFilterChange, onClick }: CreateContai
     return <>
         <div className={`${styles.create_container}`}>
             <div className={`${styles.level_one}`}>
-                <p className={`${styles.text_level_one}`}>Мои обращения</p>
-                <button onClick={onClick} className={`${styles.button_create_ticket}`}>+ Создать обращение</button>
+                <p className={`${styles.text_level_one}`}>{user.role == UserRoles.Administrator ? "Сортировка" : "Мои обращения"}</p>
+                {user.role !== UserRoles.Administrator && (
+                    <button
+                        onClick={onClick}
+                        className={styles.button_create_ticket}
+                    >
+                        + Создать обращение
+                    </button>
+                )}
             </div>
             <div className={`${styles.level_two}`}>
                 {filters.map(f => (

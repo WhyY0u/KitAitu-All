@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from './style/Style.module.css';
 import { TicketType } from "@/domain/entities/ticket/Ticket";
 import type { JSX } from "react";
-import { FaBuilding, FaBus, FaQuestion, FaSmile, FaUserGraduate, FaUserTie, FaUtensils } from "react-icons/fa";
+import { FaBuilding, FaBus, FaSmile, FaUserGraduate, FaUserTie, FaUtensils } from "react-icons/fa";
 
 interface BoxCreateTicketProps {
     onClose: () => void;
@@ -17,7 +17,6 @@ const ticketIcons: Record<keyof typeof TicketType, JSX.Element> = {
     Transport: <FaBus />,
     Psychology: <FaSmile />,
     TeacherComplaint: <FaUserTie />,
-    Other: <FaQuestion />,
 };
 
 const BoxCreateTicket = ({ onClose }: BoxCreateTicketProps) => {
@@ -29,7 +28,7 @@ const BoxCreateTicket = ({ onClose }: BoxCreateTicketProps) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.25 }}
+                transition={{ duration: 0.0 }}
             >
                 <motion.div
                     className={styles.container_box_create_ticket}

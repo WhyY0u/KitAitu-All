@@ -15,7 +15,7 @@ const Header = () => {
                 <FaUserCircle className={styles.icon} />
                 <div className={styles.textGroup}>
                     <p className={styles.name}>Иван Иванов Иванович</p>
-                    <p className={styles.role}>Ученик</p>
+                    <p className={styles.role}>id:91238182</p>
                 </div>
             </div>
         </header>

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 interface StatusContainerProps {
     counts: Counts;
-    onComplete?: () => void; // <- колбэк наружу
+    onComplete?: () => void;
 }
 
 const containerVariants = {
@@ -38,7 +38,7 @@ const StatusContainer = ({ counts, onComplete }: StatusContainerProps) => {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            onAnimationComplete={onComplete} // <- вызов после завершения stagger-анимации
+            onAnimationComplete={onComplete} 
         >
             {statusItems.map((item, index) => (
                 <motion.div

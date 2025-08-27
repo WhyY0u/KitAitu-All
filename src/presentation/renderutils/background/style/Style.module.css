@@ -1,6 +1,14 @@
-.background {
-    position: absolute;
+body {
+    margin: 0;
+    padding: 0;
     width: 100vw;
     height: 100vh;
+    background-color: rgb(240, 240, 240); 
+    font-family: 'Inter', sans-serif;
+}
+
+.background {
+    width: 100%;
+    min-height: 100vh;
     background-color: rgb(240, 240, 240);
 }

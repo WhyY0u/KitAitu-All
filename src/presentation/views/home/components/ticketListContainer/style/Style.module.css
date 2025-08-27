@@ -1,0 +1,9 @@
+
+.ticket_list_container {
+    display: flex;
+    flex-direction: column; /* вертикальный список */
+    gap: 10px; /* расстояние между тикетами */
+    padding: 15px; /* внутренние отступы */
+    max-width: 600px; /* ограничение по ширине */
+    margin: 0 auto; /* центрирование контейнера */
+}
