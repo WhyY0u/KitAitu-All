@@ -19,12 +19,11 @@ export const generateRandomTicket = (): Ticket => {
 
     const id = crypto.randomUUID();
     const date = new Date();
-    const dataTime = date.toLocaleString();
 
     return {
         id,
         name: `Тикет #${id.slice(0, 5)}`,
-        dataTime,
+        dataTime: date.toISOString(),
         type: randomType,
         status: randomStatus,
         anon: Math.random() < 0.5,
