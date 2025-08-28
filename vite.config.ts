@@ -5,6 +5,11 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    allowedHosts: [
+      "b24f901b69b4.ngrok-free.app" 
+    ]
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

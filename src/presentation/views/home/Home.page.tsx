@@ -82,15 +82,29 @@ const HomePageAdministatorAndUser = ({ user }: HomePageUserProps) => {
     );
 };
 
-
 const HomePage = () => {
     const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
     const userRepo = new UserApiRepository();
 
     useEffect(() => {
-        userRepo.getMe().then(response => setUser(response));
-    }, [])
-    return user?.role == 'Владелец' ? <HomePageOwner user={user!} /> : <HomePageAdministatorAndUser user={user!} />;
+        userRepo.getMe()
+            .then(response => setUser(response))
+            .finally(() => setLoading(false));
+    }, []);
+
+    if (loading) {
+        return (
+            <div className={styles.loaderContainer}>
+                <div className={styles.loader}></div>
+                <p className={styles.loadingText}>Загрузка...</p>
+            </div>
+        );
+    }
+
+    return user?.role === 'Владелец'
+        ? <HomePageOwner user={user!} />
+        : <HomePageAdministatorAndUser user={user!} />;
 }
 
 export default HomePage;

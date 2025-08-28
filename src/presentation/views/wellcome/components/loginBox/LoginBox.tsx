@@ -1,16 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './style/Style.module.css';
 import { useNavigate } from 'react-router';
+import { UserApiRepository } from '@/data/repositories/user/UserRepositoriesApi';
 
-const LoginBox = () => {
+interface LoginBoxProps {
+    schoolId: string;
+}
+
+const LoginBox = ({ schoolId }: LoginBoxProps) => {
     const [fio, setFio] = useState('');
     const navigate = useNavigate();
+    const userRepo = new UserApiRepository();
+    useEffect(() => {
+        const checkUser = async () => {
+            try {
+                const user = await userRepo.getMe();
+                if (user) {
+                    navigate("/home");
+                }
+            } catch (error) {
+                console.error("Ошибка при получении юзера:", error);
+            }
+        };
+        checkUser();
+
+    }, []);
 
     const handleSave = () => {
         if (!fio.trim()) {
             alert("Введите ФИО");
             return;
         }
+        console.log(userRepo.register(fio, schoolId));
         navigate('/home');
     }
 
